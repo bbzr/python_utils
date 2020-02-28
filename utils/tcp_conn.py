@@ -21,7 +21,7 @@ class TcpConnection:
             self.sock.connect((self.tcp_host, self.tcp_port))
             self.sock.settimeout(self.conn_timeout)
         except Exception as err:
-            self.logger.error('Can not connect to logstash. {}'.format(err))
+            self.logger.error('Can not connect to tcp socket. {}'.format(err))
             raise Exception
 
     def close_tcp_conn(self):
@@ -40,7 +40,7 @@ class TcpConnection:
                     self.sent_event_number += 1
                 break
             except Exception as err:
-                self.logger.warning('Can not send event to logstash. Sleeping {} seconds. {}'.format(self.wait_time_to_reconnect, err))
+                self.logger.warning('Can not send event to tcp socket. Sleeping {} seconds. {}'.format(self.wait_time_to_reconnect, err))
                 time.sleep(self.wait_time_to_reconnect)
                 try:
                     self.close_tcp_conn()
